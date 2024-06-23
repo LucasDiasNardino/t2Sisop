@@ -43,6 +43,6 @@ Aqui estão alguns exemplos de entradas que podem ser utilizadas para testar o s
 ## Como Executar
 
 1. Clone o repositório para sua máquina local.
-2. Execute o arquivo `simulador_memoria_paginada.py`.
+2. Execute o arquivo `main.py`.
 3. Siga as instruções para inserir os parâmetros de memória virtual, física e tamanho da página.
 4. Observe a saída que mostra a sequência de endereços físicos gerados, a tabela de páginas e o estado da memória física ao longo da simulação.
