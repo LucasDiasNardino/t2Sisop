@@ -1,12 +1,14 @@
 # Simulador de Memória Paginada
+Isabela Araujo, Lorenzo Oliveira, Lucas Nardino, Mauro Sachs
 
+## Descrição
 Este é um simulador básico de memória paginada implementado em Python. O código simula o processo de mapeamento de endereços virtuais para endereços físicos usando tabelas de páginas e memória física paginada.
 
 ## Funcionamento
 
 ### Classes e Métodos
 
-- **SimuladorMemoria**: Classe principal que inicializa o simulador com os parâmetros da memória virtual, física e o tamanho da página. Ela contém métodos para mapear endereços virtuais em físicos (`obterEnderecoFisico`), simular uma sequência de endereços virtuais (`simular`), e mostrar o estado atual da tabela de páginas e memória física (`mostrarTabelaPaginas` e `mostrarMemoriaFisica`).
+- **Main**: Classe principal que inicializa o simulador com os parâmetros da memória virtual, física e o tamanho da página. Ela contém métodos para mapear endereços virtuais em físicos (`obterEnderecoFisico`), simular uma sequência de endereços virtuais (`simular`), e mostrar o estado atual da tabela de páginas e memória física (`mostrarTabelaPaginas` e `mostrarMemoriaFisica`).
 
 - **obterEnderecoFisico**: Método que recebe um endereço virtual e realiza o mapeamento para um endereço físico, utilizando uma tabela de páginas e alocando espaço na memória física conforme necessário.
 

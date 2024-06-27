@@ -6,6 +6,7 @@ class SimuladorMemoria:
         self.tamanhoMemoriaFisica = tamanhoMemoriaFisica
         self.tamanhoPagina = tamanhoPagina
 
+        # Define o número de páginas virtuais e molduras físicas com o operador de divisão inteira
         self.numPaginasVirtuais = tamanhoMemoriaVirtual // tamanhoPagina
         self.numMoldurasFisicas = tamanhoMemoriaFisica // tamanhoPagina
 
@@ -17,31 +18,45 @@ class SimuladorMemoria:
         self.mostrarMemoriaFisica()
 
     def obterEnderecoFisico(self, enderecoVirtual):
+
+        # no da página = divisão inteira do endereço virtual pelo tamanho da página
         numeroPagina = enderecoVirtual // self.tamanhoPagina
+
+        # deslocamento = resto da divisão do endereço virtual pelo tamanho da página
         deslocamento = enderecoVirtual % self.tamanhoPagina
 
         print(f"\nProcessando endereço virtual {enderecoVirtual}: página {numeroPagina}, deslocamento {deslocamento}")
 
+        # busca moldura na tabela de páginas
         numeroMoldura = self.tabelaPaginas[numeroPagina]
         
         if numeroMoldura == -1:
+            # verifica se há moldura livre na memória física
             if 0 in self.memoriaFisica:
                 numeroMoldura = self.memoriaFisica.index(0)
+
+                # mapeia a página para a moldura e marca a moldura como ocupada
                 self.tabelaPaginas[numeroPagina] = numeroMoldura
                 self.memoriaFisica[numeroMoldura] = 1
+
                 print(f"Página {numeroPagina} mapeada para moldura {numeroMoldura}.")
                 self.mostrarTabelaPaginas()
                 self.mostrarMemoriaFisica()
+
             else:
                 print("Erro: Memória física cheia")
                 return None
 
+        # endereco físico = (número da moldura * tamanho da página) + deslocamento
         enderecoFisico = numeroMoldura * self.tamanhoPagina + deslocamento
         print(f"Endereço virtual {enderecoVirtual} mapeado para endereço físico {enderecoFisico}.")
         return enderecoFisico
 
     def simular(self, enderecosVirtuais):
+        # inicia vetor de endereços físicos
         enderecosFisicos = []
+
+        # para cada endereço virtual, obtém o endereço físico correspondente e adiciona à lista
         for enderecoVirtual in enderecosVirtuais:
             enderecoFisico = self.obterEnderecoFisico(enderecoVirtual)
             if enderecoFisico is not None:
@@ -86,17 +101,17 @@ def obterInputUsuario():
         except ValueError as e:
             print(f"Entrada inválida: {e}. Por favor, tente novamente.")
 
-# Obter parâmetros do usuário
+# coleta dos parâmetros
 tamanhoMemoriaVirtual, tamanhoMemoriaFisica, tamanhoPagina = obterInputUsuario()
 
-# Inicialização do simulador
+# criação do simulador com os parâmetros coletados
 simulador = SimuladorMemoria(tamanhoMemoriaVirtual, tamanhoMemoriaFisica, tamanhoPagina)
 
-# Geração de endereços virtuais aleatórios para simulação
+# Gerando de endereços virtuais aleatórios para simulação
 enderecosVirtuais = [random.randint(0, tamanhoMemoriaVirtual - 1) for _ in range(10)]
 print(f"\nEndereços virtuais gerados: {enderecosVirtuais}")
 
-# Simulação
+# iniciando a simulação
 enderecosFisicos = simulador.simular(enderecosVirtuais)
 
 # Exibição dos resultados
